@@ -22,6 +22,14 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
+// set cookie
+
+app.use("/", (req, res, next) => {
+  res.cookie("website", "altcampus");
+  console.log(req.cookies);
+  next();
+});
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

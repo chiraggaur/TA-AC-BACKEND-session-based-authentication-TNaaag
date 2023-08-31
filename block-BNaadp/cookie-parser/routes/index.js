@@ -3,7 +3,9 @@ var router = express.Router();
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  res.cookie("name", "Chirag").send("cookie set"); //Sets name = Chirag
+  res.cookie("age", 20);
+  console.log(req.cookies);
+  res.send(req.cookies);
 });
 
 module.exports = router;
