@@ -5,8 +5,9 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 var session = require("express-session");
+const MongoStore = require("connect-mongo");
 
-require("dotenv").config();
+const dotenv = require("dotenv").config();
 
 var indexRouter = require("./routes/index");
 var userRouter = require("./routes/users");
@@ -26,18 +27,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
-app.use("/users", userRouter);
-
 // add session
 
 app.use(
   session({
-    secret: process.env.SECRET,
+    secret: "somerandomsesssion",
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create(mongoose.connection),
   })
 );
+
+app.use("/", indexRouter);
+app.use("/users", userRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

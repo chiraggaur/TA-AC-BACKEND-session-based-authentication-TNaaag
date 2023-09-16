@@ -13,15 +13,9 @@ router.get("/register", function (req, res, next) {
 // create User
 
 router.post("/register", function (req, res, next) {
-  try {
-    User.create(req.body);
-    // .then((user) => {
-    //   console.log(user, "after hashing ");
-    // });
-  } catch (err) {
-    return next(err);
-  }
-  // before this data travel through pre save hook middle ware
+  User.create(req.body).then((user) => {
+    console.log(user, "after hashing ");
+  });
   res.redirect("/");
 });
 
@@ -46,11 +40,6 @@ router.post("/login", function (req, res, next) {
       }
 
       function verifyPassword(password, cb) {
-        // if (password === user.password) {
-        //   console.log("true");
-        // } else {
-        //   console.log("false");
-        // }
         bcrypt.compare(password, user.password, (err, result) => {
           return cb(err, result);
         });
@@ -58,8 +47,8 @@ router.post("/login", function (req, res, next) {
       verifyPassword(password, (err, result) => {
         console.log(err, result);
       });
-      // persist user information into session
-      req.session.userId = user;
+      // password logged in user information
+      req.session.userid = user._id;
       res.redirect("/users");
     });
   } catch (error) {
