@@ -11,31 +11,18 @@ let userRegister = new Schema(
 );
 
 // pre save hook middleware
-userRegister.pre("save", function (next) {
+userRegister.pre("save", async function (next) {
   //   console.log(this, "inside pre save");
 
-  if (this.password && this.isModified("password")) {
-    // hash password
-    console.log(this.password);
-    bcrypt.hash(this.password, 10, function (err, hash) {
-      // Store hash in your password DB.
-      if (err) return next(err);
-      this.password = hash;
-      console.log(this.password, "inside pre save"); // hashed password loggining in but not gettin in database
-      next();
-    });
-  } else {
+  try {
+    if (this.password && this.isModified("password")) {
+      this.password = await bcrypt.hash(this.password, 10);
+    }
     next();
+  } catch (err) {
+    next(err);
   }
 });
-
-// compare password of login user
-
-// userRegister.methods.verifyPassword = function (password, cb) {
-//   bcrypt.compare(password, this.password, (err, result) => {
-//     return cb(err, result);
-//   });
-// };
 
 let User = mongoose.model("User", userRegister); // equal to collection
 
