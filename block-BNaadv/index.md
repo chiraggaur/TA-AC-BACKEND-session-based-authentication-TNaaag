@@ -31,3 +31,5 @@ Handle these 3 pages:-
 - when fails, show an appropriate error message in response to the client.
 
 Use appropraie routes to handle routing for registration and login.
+
+// already done
