@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>New User Register</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <h1 class="register_title">Register</h1>
+    <form class="register_form" action="/users/register" method="POST">
+      <div>
+        <label style="display: inline-block; margin-right: 2px">Username</label>
+        <input type="text" name="username" placeholder="username" />
+      </div>
+      <div>
+        <label style="display: inline-block; margin-right: 30px"> Email</label>
+        <input type="email" name="email" placeholder="email" />
+      </div>
+      <div>
+        <label style="display: inline-block; margin-right: 2px">Password</label>
+        <input type="password" name="password" placeholder="password" />
+      </div>
+
+      <input type="submit" placeholder="Register" />
+    </form>
+  </body>
+</html>
