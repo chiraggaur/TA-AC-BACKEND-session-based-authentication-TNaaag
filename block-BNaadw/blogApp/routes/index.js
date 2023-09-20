@@ -7,10 +7,6 @@ router.get("/", async function (req, res, next) {
   var data = await Article.find({});
   res.render("index", { articles: data });
 });
-router.post("/", async function (req, res, next) {
-  await Article.create(req.body);
-  res.redirect("/");
-});
 
 module.exports = router;
 

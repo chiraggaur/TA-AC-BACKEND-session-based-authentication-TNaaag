@@ -4,8 +4,11 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const mongoose = require("mongoose");
+var session = require("express-session");
+const MongoStore = require("connect-mongo");
 
 var indexRouter = require("./routes/index");
+var articleRouter = require("./routes/article");
 var usersRouter = require("./routes/users");
 
 // connect mongoose  to db before get request from app;
@@ -23,8 +26,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+// add session
 
+app.use(
+  session({
+    secret: "somerandomsesssion",
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create(mongoose.connection),
+  })
+);
+
+//routes
 app.use("/", indexRouter);
+app.use("/article", articleRouter);
 app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler

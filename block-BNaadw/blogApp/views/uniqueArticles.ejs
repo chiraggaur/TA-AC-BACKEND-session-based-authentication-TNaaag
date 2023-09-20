@@ -9,7 +9,7 @@
   <body>
     <header class="header">
       <div class="header_logo">
-        <a href="/article/list"><h1 style="color: white">Blog App</h1></a>
+        <h1 style="color: white">Blog App</h1>
       </div>
       <div class="Enter_Box">
         <a href="/article/"
@@ -23,22 +23,22 @@
         </a>
       </div>
     </header>
-    <div>
-      <h1 style="text-align: center; font-size: 30px">Blogs</h1>
-      <a href="/article/list" style="text-decoration: none">
-        <button
-          style="
-            margin: 100px auto;
-            display: block;
-            width: 120px;
-            height: 40px;
-            font-size: 20px;
-            border-radius: 5px;
-          "
-        >
-          Articles
-        </button>
-      </a>
+    <div class="articles_unique_box">
+      <h1><%=articleData.title%></h1>
+      <p><%=articleData.description%></p>
+      <p><%=articleData.author%></p>
+      <div>
+        <label> Likes </label>
+        <p class="likes_count">:<%=articleData.likes%></p>
+      </div>
     </div>
+    <form action="/article/<%=articleData.id %>/comment" method="POST">
+      <textarea name="content" rows="3" placeholder="Add comments"></textarea>
+      <input
+        style="display: block; background-color: green; color: white"
+        type="submit"
+        value="add comment"
+      />
+    </form>
   </body>
 </html>
